@@ -1,0 +1,16 @@
+#!/bin/bash
+APP=dpass
+LOCAL_USER=neptune
+attempts=3
+
+passname=$(find ~/.password-store | grep gpg$ | sed 's:'"$HOME"'/.password-store/\(.*\).gpg:\1:' | dmenu -l 10)
+echo "1234" | gpg --no-use-agent -o /dev/null --local-user $LOCAL_USER -as -
+while [[ $? != 0 && $attempts != 0 ]]; do
+    passphrase=$(dmenu -P -p "Enter passphrase (attempts: $attempts):")
+    ((attempts--))
+    echo "1234" | gpg --batch --pinentry-mode loopback --passphrase "$passphrase" -o /dev/null --local-user $LOCAL_USER -as - 
+done
+
+[[ $? != 0 ]] && notify-send -a $APP -u critical "Decryption failed: no secret key" && exit 1
+echo $(pass show -c $passname & notify-send -a $APP -u low "Copied $passname to clipboard. Will clear in 45 seconds.") && \
+    notify-send -a $APP -u low "$passname removed from clipboard."
