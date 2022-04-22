@@ -3,7 +3,9 @@ shopt -s expand_aliases
 
 DIR=$HOME/.dotfiles
 
-alias stowit='stow -v -R'
+git clone https://github.com/vkot1/.dotfiles.git $DIR
+
+alias stowit='stow -v -R -d $DIR'
 pkgs=($(ls -d $DIR/*/ | sed 's:'"$DIR"'/\(.*\)/:\1:'))
 ignore=(
     firefox
