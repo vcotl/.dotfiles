@@ -1,0 +1,35 @@
+#!/bin/bash
+TAG=dc
+myuser=$(who | awk '{print $1}')
+
+community_edge_repo="https://dl-cdn.alpinelinux.org/alpine/edge/community"
+
+echo "
+FROM python:3.10.4-alpine3.15
+
+# zsh -----------------------------------------------------
+RUN apk add zsh
+RUN apk add zsh-syntax-highlighting
+
+# git -----------------------------------------------------
+RUN apk add git
+
+# tmux ----------------------------------------------------
+RUN apk add tmux
+
+# neovim and necessary libs -------------------------------
+RUN apk add libstdc++
+RUN apk add neovim --repository=$community_edge_repo
+
+# python tools --------------------------------------------
+RUN apk add nodejs npm
+RUN npm install -g pyright
+RUN pip install pylint
+RUN pip install black
+
+RUN adduser -D $myuser
+ENV ZDOTDIR=/home/$myuser/.config/zsh
+ENV TERM=st-256color
+
+CMD /bin/zsh -c 'source ~/.zprofile && tmux new -s devcontainer'
+" | docker build - -t $TAG
