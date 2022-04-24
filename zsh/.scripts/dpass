@@ -3,7 +3,7 @@ APP=dpass
 LOCAL_USER=neptune
 attempts=3
 
-passname=$(find ~/.password-store | grep gpg$ | sed 's:'"$HOME"'/.password-store/\(.*\).gpg:\1:' | dmenu -l 10)
+passname=$(find $HOME/.password-store | grep gpg$ | sed 's:'"$HOME"'/.password-store/\(.*\).gpg:\1:' | dmenu -l 10)
 echo "1234" | gpg --no-use-agent -o /dev/null --local-user $LOCAL_USER -as -
 while [[ $? != 0 && $attempts != 0 ]]; do
     passphrase=$(dmenu -P -p "Enter passphrase (attempts: $attempts):")

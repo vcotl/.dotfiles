@@ -1,0 +1,4 @@
+#!/bin/bash
+[[ $(ps -p ${SSH_AGENT_PID:-942353412} > /dev/null; echo $?) -gt 0 ]] && eval "$(ssh-agent -s)"
+keyname=$(find $HOME/.ssh | grep pub$ | sed 's:'"$HOME"'/.ssh/\(.*\).pub:\1:' | dmenu -l 10)
+ssh-add $HOME/.ssh/$keyname
