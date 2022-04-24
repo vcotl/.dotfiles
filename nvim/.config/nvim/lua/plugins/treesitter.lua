@@ -8,14 +8,17 @@ require'nvim-treesitter.configs'.setup {
     disable = { "python" },
   },
   ensure_installed = {
+    "bash",
+    "make",
+    "c",
+    "lua",
     "python",
-    "tsx",
-    "toml",
-    "fish",
-    "php",
+    "html",
+    "css",
+    "javascript",
     "json",
     "yaml",
-    "html",
-    "scss"
+    "toml",
+    "dockerfile",
   },
 }

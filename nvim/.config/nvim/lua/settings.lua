@@ -1,3 +1,5 @@
+vim.cmd [[filetype plugin indent on]]
+
 vim.o.encoding = "utf-8"
 vim.o.number = true
 vim.o.relativenumber = true
