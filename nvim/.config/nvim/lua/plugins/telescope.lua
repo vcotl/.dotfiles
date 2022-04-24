@@ -6,7 +6,11 @@ require("telescope").setup {
         --theme = "ivy",
       mappings = {
         ["i"] = {
-          -- your custom insert mode mappings
+          ["<C-c>"] = fb_actions.create,
+          ["<C-r>"] = fb_actions.rename,
+          ["<C-m>"] = fb_actions.move,
+          ["<C-y>"] = fb_actions.copy,
+          ["<C-d>"] = fb_actions.remove,
         },
         ["n"] = {
           -- your custom normal mode mappings
