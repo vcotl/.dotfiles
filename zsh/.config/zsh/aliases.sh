@@ -21,14 +21,17 @@ alias dp='sudo docker ps'
 alias dra='sudo docker rm $(sudo docker ps -aq)'
 alias dil='sudo docker image ls'
 alias dira='sudo docker image rm $(sudo docker image ls -aq)'
-alias drdc='sudo docker run -ti --rm \
+alias drdc='sudo xhost +"local:docker@" && sudo docker run -ti --rm \
     -e HOME=${HOME} \
+    -e DISPLAY=${DISPLAY} \
     -v ${HOME}:${HOME}/ \
     -v /etc/group:/etc/group:ro \
     -v /etc/passwd:/etc/passwd:ro \
     -v /etc/localtime:/etc/localtime:ro \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
     -u $(id -u ${USER}):$(id -g ${USER})\
-    -h devcontainer -w $(pwd)'
+    -h devcontainer -w $(pwd) \
+    dc'
 
 # dotfiles bare repo
 # deprecated
