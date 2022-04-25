@@ -5,7 +5,7 @@ require("packer").startup { function()
   use { "kyazdani42/nvim-web-devicons" }
   use { "marko-cerovac/material.nvim" }
   use { "phaazon/hop.nvim", branch = "v1" }
-  use { "nvim-telescope/telescope.nvim" }
+  use { "nvim-telescope/telescope.nvim", tag="nvim-0.6" }
   use { "nvim-telescope/telescope-file-browser.nvim" }
   use { "lewis6991/gitsigns.nvim" }
   use { "lukas-reineke/indent-blankline.nvim" }
