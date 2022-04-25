@@ -15,13 +15,15 @@ RUN apk add \
     tmux \
     libstdc++ \
     nodejs \
-    npm \
+    npm 
+
+RUN apk add --repository=$community_edge_repo \
+    neovim \
     black \
     py3-pylint \
     py3-requests \
+    py3-numpy \
     py3-pandas
-
-RUN apk add neovim --repository=$community_edge_repo
 RUN npm install -g pyright
 
 RUN adduser -D $myuser

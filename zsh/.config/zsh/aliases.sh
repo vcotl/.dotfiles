@@ -30,8 +30,7 @@ alias drdc='sudo xhost +"local:docker@" && sudo docker run -ti --rm \
     -v /etc/localtime:/etc/localtime:ro \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -u $(id -u ${USER}):$(id -g ${USER})\
-    -h devcontainer -w $(pwd) \
-    dc'
+    -h devcontainer -w $(pwd)'
 
 # dotfiles bare repo
 # deprecated

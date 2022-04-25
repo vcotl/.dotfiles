@@ -1,0 +1,33 @@
+#!/bin/bash
+TAG=${1:-dc}
+myuser=$(who | awk '{print $1}')
+
+echo "
+FROM python:3.10.4-slim-bullseye
+
+RUN echo 'deb http://ftp.de.debian.org/debian unstable main' >> /etc/apt/sources.list
+RUN apt-get update
+
+RUN apt-get install -y \
+    zsh \
+    zsh-syntax-highlighting \
+    git \
+    tmux \
+    neovim
+
+# fix location of the zsh-highlight pluging to match with voidlinux location
+RUN mkdir -p /usr/share/zsh/plugins/zsh-syntax-highlighting
+RUN mv /usr/share/zsh-syntax-highlighting/* /usr/share/zsh/plugins/zsh-syntax-highlighting/
+
+RUN apt-get install -y nodejs npm
+RUN npm install -g pyright
+RUN pip install pylint black
+RUN pip install requests
+RUN pip install pandas
+
+RUN useradd $myuser
+ENV ZDOTDIR=/home/$myuser/.config/zsh
+ENV TERM=xterm-256color
+
+CMD /bin/zsh -c 'source ~/.zprofile && tmux -u new -s dc-py310'
+" | docker build - -t $TAG
