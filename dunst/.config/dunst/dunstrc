@@ -112,7 +112,7 @@
 
     ### Text ###
 
-    font = Ubuntu 10
+    font = FuraCode Nerd Font 10
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
@@ -409,6 +409,21 @@
 #    # This notification will not be displayed, but will be included in the history
 #    summary = "foobar"
 #    skip_display = yes
+
+[fs_info]
+    appname = flameshot
+    summary = "*Info*"
+    format = " <b>%a</b> %p\n%b"
+
+[fs_error]
+    appname = flameshot
+    summary = "*Error*"
+    format = " <b>%a</b> %p\n%b"
+    urgency = critical
+    background = "#ff5555"
+    foreground = "#eeeeee"
+    frame_color = "#ff5555"
+    timeout = 0
 
 #[signed_on]
 #    appname = Pidgin
