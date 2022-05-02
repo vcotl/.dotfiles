@@ -37,7 +37,7 @@ alias drdc='sudo xhost +"local:docker@" && sudo docker run -ti --rm \
 # alias dotf='/usr/bin/git --git-dir=$HOME/.dotfiles-bare/ --work-tree=$HOME'
 
 # ssh
-alias sadd='source dssh-add'
+alias sadd='source ssh-upadd'
 alias sshas='eval "$(ssh-agent -s)"'
 
 # poetry
