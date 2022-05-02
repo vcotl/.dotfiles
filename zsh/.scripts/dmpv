@@ -1,0 +1,8 @@
+#!/bin/bash
+
+URLREGEX="(((http|https|gopher|gemini|ftp|ftps|git)://|www\\.)[a-zA-Z0-9.]*[:]?[a-zA-Z0-9./@$&%?$\#=_~-]*)|((magnet:\\?xt=urn:btih:)[a-zA-Z0-9]*)"
+
+url=$(xclip -selection c -o | grep -aEo $URLREGEX)
+
+[[ -z $url ]] && notify-send -a "$APP" -u critical -t 5000 "Unable to get url from clipboard." && exit 1
+mpv $url

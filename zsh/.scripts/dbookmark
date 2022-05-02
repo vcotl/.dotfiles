@@ -1,0 +1,36 @@
+#!/bin/bash
+
+APP=" dbookmark"
+DATA=$XDG_DATA_HOME/dbookmarks.txt
+URLREGEX="(((http|https|gopher|gemini|ftp|ftps|git)://|www\\.)[a-zA-Z0-9.]*[:]?[a-zA-Z0-9./@$\+&%?$\#=_~-]*)|((magnet:\\?xt=urn:btih:)[a-zA-Z0-9]*)"
+SEP="___"
+
+url=$(xclip -selection c -o | grep -aEo $URLREGEX)
+
+[[ ! -f $DATA ]] && mkdir -p $(dirname $DATA) && touch $DATA
+
+[[ -n $url ]] && apref="a$SEP$url"
+opref=$(printf "o$SEP%s\n" $(cat $DATA | sed "s, ,$SEP,g"))
+dpref=$(printf "d$SEP%s\n" $(cat $DATA | sed "s, ,$SEP,g"))
+
+allprefs=($apref $opref $dpref)
+
+sel=$(printf "%s\n" ${allprefs[@]} | sed "s,$SEP, ,g" | dmenu -l 10)
+
+if [[ $sel =~ ^[a].* ]]; then
+    alias=$(2>/dev/null | dmenu -p " Add alias to $url (optional):")
+    [[ $? != 0 ]] && exit 1
+    echo "$alias $url" | sed -e "s/^[[:space:]]*//" >> $DATA
+    notify-send -a "$APP" "Bookmark has been added." && exit 0
+
+elif [[ $sel =~ ^[o].* ]]; then
+    url=$(echo $sel | grep -aEo $URLREGEX)
+    [[ -n $url ]] && xdg-open $url && exit 0
+    notify-send -a "$APP" -u critical "Unable to identify URL in selected line: $sel"
+
+elif [[ $sel =~ ^[d].* ]]; then
+    line=$(echo $sel | sed "s,^d\s,,")
+    sed -i "\,$line,d" $DATA
+    [[ $? == 0 ]] && notify-send -a "$APP" "Bookmark has deleted." && exit 0
+fi
+
