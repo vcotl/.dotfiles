@@ -1,22 +1,13 @@
 #!/bin/bash
 
-readonly APP=" dbookmark"
 readonly DATA="${XDG_DATA_HOME}/search_engines.txt"
 
 main() {
-  declare -a engines
-
   [[ ! -f $DATA ]] && mkdir -p $(dirname $DATA) && touch $DATA 
-  readarray -t engines < <(cat "${DATA}")
-  query=$(printf "%s\n" "${engines[@]}" | dmenu) || exit 0
-  
-  for engine in "${engines[@]}"; do
-    if [[ "${query%% *}" == "${engine%%:*}" ]]; then
-      xdg-open $(printf "${engine#*: }" "${query#* }") && exit 0
-    fi
-  done
-
-  xdg-open $(printf "${engines[0]#*: }" "${query#* }")
+  query=$(cat "${DATA}" | dmenu) || exit 0
+  eng=$(cat "${DATA}" | grep "^${query%% *}:.*")
+  [[ -n "${eng}" ]] && query="${query#* }" || eng="$(cat "$DATA" | head -n 1)"
+  xdg-open $(printf "${eng#*: }" "${query// /+}")
 }
 
 main "$@"
