@@ -1,21 +1,22 @@
 #!/bin/bash
 
-DATA=$XDG_DATA_HOME/search_engines.txt
-URLREGEX="(((http|https|gopher|gemini|ftp|ftps|git)://|www\\.)[a-zA-Z0-9.]*[:]?[a-zA-Z0-9./@$&%?$\#=_~-]*)|((magnet:\\?xt=urn:btih:)[a-zA-Z0-9]*)"
-SEP="___"
+readonly APP=" dbookmark"
+readonly DATA="${XDG_DATA_HOME}/search_engines.txt"
 
-[[ ! -f $DATA ]] && mkdir -p $(dirname $DATA) && touch $DATA
-engines=($(cat $DATA | sed "s, ,$SEP,g"))
-query=$(printf "%s\n" ${engines[@]} | sed "s,$SEP, ,g" | dmenu) || exit 1
+main() {
+  declare -a engines
 
-for i in ${engines[@]}; do
-    curr_pref=$(echo $i | sed 's/:.*//')
-    if [[ $query =~ ^$curr_pref\ .* ]]; then
-        url=$(echo $i | grep -aEo $URLREGEX)
-        qbody=$(echo $query | sed "s/$curr_pref\s//")
-        xdg-open $(printf $url ${qbody// /+}) 2>/dev/null && exit 0
+  [[ ! -f $DATA ]] && mkdir -p $(dirname $DATA) && touch $DATA 
+  readarray -t engines < <(cat "${DATA}")
+  query=$(printf "%s\n" "${engines[@]}" | dmenu) || exit 0
+  
+  for engine in "${engines[@]}"; do
+    if [[ "${query%% *}" == "${engine%%:*}" ]]; then
+      xdg-open $(printf "${engine#*: }" "${query#* }") && exit 0
     fi
-done
+  done
 
-url=$(echo ${engines[0]} | grep -aEo $URLREGEX)
-xdg-open $(printf $url ${query// /+}) 2>/dev/null && exit 0
+  xdg-open $(printf "${engines[0]#*: }" "${query#* }")
+}
+
+main "$@"

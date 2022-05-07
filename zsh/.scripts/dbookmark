@@ -1,36 +1,42 @@
 #!/bin/bash
 
-APP=" dbookmark"
-DATA=$XDG_DATA_HOME/dbookmarks.txt
-URLREGEX="(((http|https|gopher|gemini|ftp|ftps|git)://|www\\.)[a-zA-Z0-9.]*[:]?[a-zA-Z0-9./@$\+&%?$\#=_~-]*)|((magnet:\\?xt=urn:btih:)[a-zA-Z0-9]*)"
-SEP="___"
+source dutils.sh
 
-[[ ! -f $DATA ]] && mkdir -p $(dirname $DATA) && touch $DATA
+readonly APP=" dbookmark"
+readonly DATA="${XDG_DATA_HOME}/dbookmarks.txt"
 
-get_url() { echo "$1" | grep -aEo $URLREGEX; }
-url=$(get_url $(xclip -selection c -o)) && prefa="a$SEP$url"
+add() { echo "${2//${2: -1}/${2: -1} }$1" >> "${DATA}"; }
+del() { sed -i "\,${1:2},d" "${DATA}"; }
 
-pref() { printf "$1$SEP%s\n" $(cat $DATA | sed "s, ,$SEP,g"); }
-allprefs=($prefa $(pref o) $(pref e) $(pref d))
-sel=$(printf "%s\n" ${allprefs[@]} | sed "s,$SEP, ,g" | dmenu -l 10)
+main() {
+  declare -a bmrks
+  declare -a prefs=("o" "e" "d")
 
-notify() { notify-send -a "$APP" "$@"; }
-add() { echo "${alias//$SEP/ }$url" >> $DATA; }
-del() { sed -i "\,$(echo $sel | sed "s,^[de]\s,,"),d" $DATA; }
-if [[ $sel =~ ^[a].* ]]; then
-    alias="$(2>/dev/null | dmenu -p " Add alias to $url (optional):")$SEP"
-    add && notify "Bookmark has been added." && exit 0
+  [[ ! -f "${DATA}" ]] && mkdir -p "$(dirname "${DATA}")" && touch "${DATA}"
+  readarray -t bmrks < <(cat "${DATA}")
+  url="$(dutils::grep_urls "$(xclip -selection c -o)")" && lst="a ${url}\n"
+  for p in "${prefs[@]}"; do
+    lst+="$(printf "${p} %s\n" "${bmrks[@]}")\n"
+  done
+  
+  sel=$(echo -e "${lst}" | dmenu -l 10) || exit 0
 
-elif [[ $sel =~ ^[o].* ]]; then
-    url=$(get_url "$sel") && xdg-open $url && exit 0
-    notify -u critical "Unable to identify URL in selected line: $sel"
+  case "${sel:0:1}" in
+    a) 
+      alias=$(dutils::einput -p " Add alias to ${url} (optional):") || exit 0 
+      add "${url}" "${alias}" && dutils::notify "Bookmark has been added."
+      ;;
+    o)
+      url=$(dutils::grep_urls "${sel}") && xdg-open ${url} || \
+        dutils::cnotify "Unable to identify URL in selected line: ${sel:2}"
+      ;;
+    e)
+      alias=$(dutils::einput -p " Enter new alias for ${url}:") || exit 0 
+      del "${sel}" && add "$(dutils::grep_urls "${sel}")" "${alias}" && \
+        dutils::notify "Alias has changed."
+      ;;
+    d) del "${sel}" && dutils::notify "Bookmark has deleted." ;;
+  esac
+}
 
-elif [[ $sel =~ ^[e].* ]]; then
-    url=$(get_url "$sel")
-    alias="$(2>/dev/null | dmenu -p " Enter new alias for $url:")$SEP" || exit 1
-    del && add && notify "Alias has changed." && exit 0
-
-elif [[ $sel =~ ^[d].* ]]; then
-    del && notify "Bookmark has deleted." && exit 0
-fi
-
+main "$@"
