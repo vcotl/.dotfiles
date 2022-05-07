@@ -21,13 +21,13 @@ dutils::einput() {
 }
 
 dutils::notify() {
-  notify-send -a "$APP" "$@"
+  dunstify -a "$APP" "$@"
 }
 
 dutils::cnotify() {
-  notify-send -a "$APP" -u critical "$@"
+  dunstify -a "$APP" -u critical "$@"
 }
 
 dutils::lnotify() {
-  notify-send -a "$APP" -u low "$@"
+  dunstify -a "$APP" -u low "$@"
 }
