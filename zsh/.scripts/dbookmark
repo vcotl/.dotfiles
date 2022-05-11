@@ -5,7 +5,7 @@ source dutils.sh
 readonly APP=" dbookmark"
 readonly DATA="${XDG_DATA_HOME}/dbookmarks.txt"
 
-add() { echo "${2//${2: -1}/${2: -1} }$1" >> "${DATA}"; }
+add() { echo "${2//${2}/${2} }$1" >> "${DATA}"; }
 del() { sed -i "\,${1:2},d" "${DATA}"; }
 
 main() {
