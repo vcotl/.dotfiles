@@ -4,7 +4,11 @@ alias ahg='cat $HOME/.config/zsh/aliases.sh | grep'
 
 # ls
 alias ls='ls --color=always --group-directories-first'
-alias la='ls -a --color=always --group-directories-first'
+alias la='ls -A --color=always --group-directories-first'
+alias lg='ls -A --color=always --group-directories-first | grep'
+alias lsl='ls -XGlh --color=always --group-directories-first'
+alias lal='ls -AXGlh --color=always --group-directories-first'
+alias lgl='ls -AXGlh --color=always --group-directories-first | grep'
 
 # other
 alias cl='clear'

@@ -1,2 +1,0 @@
-#!/bin/bash
-[ $(echo -e "No\nYes" | dmenu -p "Are you sure you want to reboot?") == "Yes" ] && sudo reboot 

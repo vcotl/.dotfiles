@@ -1,0 +1,3 @@
+#!/bin/bash
+answer="$(echo -e "No\nYes" | dmenu -i -p "Are you sure you want to shutdown?")"
+[ "${answer}" == "Yes" ] && sudo shutdown -h now 

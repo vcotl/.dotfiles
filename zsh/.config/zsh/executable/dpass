@@ -1,0 +1,31 @@
+#!/bin/bash
+
+source dutils.sh
+
+APP=" dpass"
+DATA="${PASSWORD_STORE_DIR:-$HOME/.password-store}"
+LOCAL_USER="neptune"
+ATTEMPTS=3
+
+
+passname="$( \
+  find "${DATA}" | \
+  grep gpg$ | \
+  sed 's:'"${DATA}"'/\(.*\).gpg:\1:' | \
+  dmenu -l 10 \
+)"
+
+echo "1" | gpg --no-use-agent -o /dev/null --local-user "${LOCAL_USER}" -as -
+
+while [[ $? != "0" && "${ATTEMPTS}" != "0" ]]; do
+  pass="$(dmenu -P -p "Enter passphrase (attempts: ${ATTEMPTS}):")" || exit 0
+  ((ATTEMPTS--))
+  echo "1" | gpg --batch --pinentry-mode loopback --passphrase "${pass}" \
+    -o /dev/null --local-user "${LOCAL_USER}" -as - 
+done
+
+[[ $? != "0" ]] && du::cnotify "Decryption failed: no secret key" && exit 1
+echo "$( \
+  pass show -c ${passname} & \
+  du::notify "Copied ${passname} to clipboard. Will clear in 45 seconds." \
+)" && du::notify "${passname} removed from clipboard."

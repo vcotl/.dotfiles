@@ -1,0 +1,9 @@
+#!/bin/bash
+readonly APP=" dmpv"
+
+
+main() {
+
+}
+
+main "$@"
