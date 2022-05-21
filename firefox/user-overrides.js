@@ -6,3 +6,4 @@ user_pref("gfx.webrender.all", true);
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 user_pref("browser.download.animateNotifications", false);
 user_pref("image.mem.animated.discardable", false);
+user_pref("browser.download.folderList", 2);
