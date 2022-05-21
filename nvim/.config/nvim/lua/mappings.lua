@@ -34,12 +34,17 @@ vim.api.nvim_set_keymap("n", "<c-w>h", "<c-w>5<", { noremap = true})
 vim.api.nvim_set_keymap("n", "<c-w>k", "<c-w>5+", { noremap = true})
 vim.api.nvim_set_keymap("n", "<c-w>j", "<c-w>5-", { noremap = true})
 
-vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true})
-vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true})
-
 vim.api.nvim_set_keymap("n", "<c-o>", "<cmd>m .+1<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<c-p>", "<cmd>m .-2<cr>", { noremap = true })
 
 vim.api.nvim_set_keymap("n", "<space>oo", "o<esc>k", { noremap = true })
 vim.api.nvim_set_keymap("n", "<space>O", "O<esc>j", { noremap = true })
 
+vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true})
+vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true})
+
+vim.api.nvim_set_keymap("v", "<c-o>", "xp`[V`]", { noremap = true })
+vim.api.nvim_set_keymap("v", "<c-p>", "xkP`[V`]", { noremap = true })
+
+vim.api.nvim_set_keymap("v", "<c-c>", "xp`[V`]", { noremap = true })
+vim.api.nvim_set_keymap("v", "<c-p>", "xkP`[V`]", { noremap = true })

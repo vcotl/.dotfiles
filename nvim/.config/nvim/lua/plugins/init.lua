@@ -25,10 +25,12 @@ require("packer").startup { function()
   use { "folke/which-key.nvim" }
   use { "vimwiki/vimwiki", branch = "dev" }
   use { "jose-elias-alvarez/null-ls.nvim" }
+  use { "numToStr/Comment.nvim" }
 end }
 
 require "plugins/material"
 require "plugins/hop"
+require "plugins/telescope"
 require "plugins/gitsigns"
 require "plugins/bufferline"
 require "plugins/lualine"
@@ -39,4 +41,4 @@ require "plugins/navigator"
 require "plugins/which-key"
 require "plugins/vimwiki"
 require "plugins/null-ls"
-require "plugins/telescope"
+require "plugins/comment"
