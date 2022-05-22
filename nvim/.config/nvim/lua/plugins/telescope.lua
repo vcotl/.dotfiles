@@ -3,7 +3,6 @@ local fb_actions = require "telescope".extensions.file_browser.actions
 require("telescope").setup {
   extensions = {
     file_browser = {
-        --theme = "ivy",
       mappings = {
         ["i"] = {
           ["<C-c>"] = fb_actions.create,
@@ -11,9 +10,6 @@ require("telescope").setup {
           ["<C-m>"] = fb_actions.move,
           ["<C-y>"] = fb_actions.copy,
           ["<C-d>"] = fb_actions.remove,
-        },
-        ["n"] = {
-          -- your custom normal mode mappings
         },
       },
     },
