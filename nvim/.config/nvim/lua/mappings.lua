@@ -40,6 +40,9 @@ vim.api.nvim_set_keymap("n", "<c-p>", "<cmd>m .-2<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<space>oo", "o<esc>k", { noremap = true })
 vim.api.nvim_set_keymap("n", "<space>O", "O<esc>j", { noremap = true })
 
+vim.api.nvim_set_keymap("n", "<space>r", "<cmd>w! | silent !compiler %<cr>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<space>ts", "<cmd>lua MiniTrailspace.trim()<cr>", { noremap = true })
+
 vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true})
 vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true})
 

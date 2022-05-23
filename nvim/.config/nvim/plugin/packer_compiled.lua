@@ -69,12 +69,6 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  ["Comment.nvim"] = {
-    config = { 'require "plugins/comment"' },
-    loaded = true,
-    path = "/home/vk/.local/share/nvim/site/pack/packer/start/Comment.nvim",
-    url = "https://github.com/numToStr/Comment.nvim"
-  },
   LuaSnip = {
     loaded = true,
     path = "/home/vk/.local/share/nvim/site/pack/packer/start/LuaSnip",
@@ -151,6 +145,12 @@ _G.packer_plugins = {
     path = "/home/vk/.local/share/nvim/site/pack/packer/start/material.nvim",
     url = "https://github.com/marko-cerovac/material.nvim"
   },
+  ["mini.nvim"] = {
+    config = { "\27LJ\2\2Ÿ\1\0\0\2\0\6\0\0216\0\0\0'\1\1\0B\0\2\0029\0\2\0B\0\1\0016\0\0\0'\1\3\0B\0\2\0029\0\2\0B\0\1\0016\0\0\0'\1\4\0B\0\2\0029\0\2\0B\0\1\0016\0\0\0'\1\5\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\20mini.trailspace\18mini.surround\15mini.pairs\nsetup\17mini.comment\frequire\0" },
+    loaded = true,
+    path = "/home/vk/.local/share/nvim/site/pack/packer/start/mini.nvim",
+    url = "https://github.com/echasnovski/mini.nvim"
+  },
   ["null-ls.nvim"] = {
     config = { 'require "plugins/null-ls"' },
     loaded = true,
@@ -214,10 +214,10 @@ time([[Defining packer_plugins]], false)
 time([[Config for hop.nvim]], true)
 require("hop").setup()
 time([[Config for hop.nvim]], false)
--- Config for: nvim-lspconfig
-time([[Config for nvim-lspconfig]], true)
-require "plugins/lspconfig"
-time([[Config for nvim-lspconfig]], false)
+-- Config for: nvim-treesitter
+time([[Config for nvim-treesitter]], true)
+require "plugins/treesitter"
+time([[Config for nvim-treesitter]], false)
 -- Config for: material.nvim
 time([[Config for material.nvim]], true)
 require "plugins/material"
@@ -230,30 +230,30 @@ time([[Config for which-key.nvim]], false)
 time([[Config for nvim-cmp]], true)
 require "plugins/nvim-cmp"
 time([[Config for nvim-cmp]], false)
--- Config for: Navigator.nvim
-time([[Config for Navigator.nvim]], true)
-require("Navigator").setup()
-time([[Config for Navigator.nvim]], false)
--- Config for: gitsigns.nvim
-time([[Config for gitsigns.nvim]], true)
-require "plugins/gitsigns"
-time([[Config for gitsigns.nvim]], false)
+-- Config for: mini.nvim
+time([[Config for mini.nvim]], true)
+try_loadstring("\27LJ\2\2Ÿ\1\0\0\2\0\6\0\0216\0\0\0'\1\1\0B\0\2\0029\0\2\0B\0\1\0016\0\0\0'\1\3\0B\0\2\0029\0\2\0B\0\1\0016\0\0\0'\1\4\0B\0\2\0029\0\2\0B\0\1\0016\0\0\0'\1\5\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\20mini.trailspace\18mini.surround\15mini.pairs\nsetup\17mini.comment\frequire\0", "config", "mini.nvim")
+time([[Config for mini.nvim]], false)
+-- Config for: nvim-lspconfig
+time([[Config for nvim-lspconfig]], true)
+require "plugins/lspconfig"
+time([[Config for nvim-lspconfig]], false)
 -- Config for: lualine.nvim
 time([[Config for lualine.nvim]], true)
 require "plugins/lualine"
 time([[Config for lualine.nvim]], false)
--- Config for: nvim-treesitter
-time([[Config for nvim-treesitter]], true)
-require "plugins/treesitter"
-time([[Config for nvim-treesitter]], false)
+-- Config for: gitsigns.nvim
+time([[Config for gitsigns.nvim]], true)
+require "plugins/gitsigns"
+time([[Config for gitsigns.nvim]], false)
 -- Config for: bufferline.nvim
 time([[Config for bufferline.nvim]], true)
 require "plugins/bufferline"
 time([[Config for bufferline.nvim]], false)
--- Config for: Comment.nvim
-time([[Config for Comment.nvim]], true)
-require "plugins/comment"
-time([[Config for Comment.nvim]], false)
+-- Config for: Navigator.nvim
+time([[Config for Navigator.nvim]], true)
+require("Navigator").setup()
+time([[Config for Navigator.nvim]], false)
 -- Config for: null-ls.nvim
 time([[Config for null-ls.nvim]], true)
 require "plugins/null-ls"
