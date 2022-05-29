@@ -3,7 +3,7 @@
 readonly DATA="${XDG_DATA_HOME}/search_engines.txt"
 
 main() {
-  [[ ! -f "${DATA}" ]] && mkdir -p "$(dirname "${DATA}")" && touch "${DATA}" 
+  [[ ! -f "${DATA}" ]] && mkdir -p "$(dirname "${DATA}")" && touch "${DATA}"
   query="$(cat "${DATA}" | dmenu)" || exit 0
   eng="$(cat "${DATA}" | grep "^${query%% *}:.*")"
   [[ -n "${eng}" ]] && query="${query#* }" || eng="$(cat "$DATA" | head -n 1)"

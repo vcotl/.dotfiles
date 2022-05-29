@@ -1,6 +1,7 @@
 alias rzs='source $HOME/.config/zsh/.zshrc'
 alias ah='cat $HOME/.config/zsh/aliases.sh'
 alias ahg='cat $HOME/.config/zsh/aliases.sh | grep'
+alias cdex='cd $HOME/.config/zsh/executable'
 
 # ls
 alias ls='ls --color=always --group-directories-first'

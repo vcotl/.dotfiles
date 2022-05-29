@@ -5,6 +5,12 @@ require("packer").startup(function()
   use { "nvim-telescope/telescope-file-browser.nvim" }
   use { "lukas-reineke/indent-blankline.nvim" }
   use { "L3MON4D3/LuaSnip" }
+  use { "jghauser/follow-md-links.nvim" }
+
+  use {
+    "petertriho/nvim-scrollbar",
+    config = function() require("scrollbar").setup() end,
+  }
 
   use {
     "numToStr/Navigator.nvim",

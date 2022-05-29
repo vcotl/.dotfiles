@@ -12,7 +12,7 @@ show_progres() {
     i=$(( (i+1) %4 ))
     du::notify -r 1 -t 200 "Starting ${spin:$i:1}"
     sleep .1
-  done 
+  done
   error="$(cat "$1" | tail -n 1 | grep "Error")"
   message="$(cat "$1" | head -n 1)"
   [[ -n "${error}" ]] && du::cnotify -r 1 "${message}"

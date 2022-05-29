@@ -1,0 +1,11 @@
+#!/bin/bash
+source dutils.sh
+
+readonly APP=" dcpick"
+
+cp="$(colorpicker --one-shot)"
+hex="$(echo ${cp} | awk '{print $9}')"
+res="$(du::notify -r 1 -t 0 -h string:bgcolor:${hex} --action="3,Copy" \
+  "$(echo -e "${cp/| /\\n}")")"
+[[ "${res}" == "3" ]] && \
+  echo "${hex}" | xclip -selection c && du::notify -r 1 -t 1500 "Copied ${hex}"

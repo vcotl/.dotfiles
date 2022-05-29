@@ -21,7 +21,7 @@ while [[ $? != "0" && "${ATTEMPTS}" != "0" ]]; do
   pass="$(dmenu -P -p "Enter passphrase (attempts: ${ATTEMPTS}):")" || exit 0
   ((ATTEMPTS--))
   echo "1" | gpg --batch --pinentry-mode loopback --passphrase "${pass}" \
-    -o /dev/null --local-user "${LOCAL_USER}" -as - 
+    -o /dev/null --local-user "${LOCAL_USER}" -as -
 done
 
 [[ $? != "0" ]] && du::cnotify "Decryption failed: no secret key" && exit 1

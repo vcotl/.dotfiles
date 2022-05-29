@@ -1,7 +1,7 @@
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
-    disable = {},
+    disable = { "markdown" },
   },
   indent = {
     enable = true,
@@ -13,6 +13,8 @@ require'nvim-treesitter.configs'.setup {
     "c",
     "lua",
     "python",
+    "markdown",
+    "latex",
     "html",
     "css",
     "javascript",
